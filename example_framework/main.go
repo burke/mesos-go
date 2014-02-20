@@ -4,7 +4,7 @@ import (
 	"code.google.com/p/goprotobuf/proto"
 	"flag"
 	"fmt"
-	"github.com/burke/mesos-go/mesos"
+	"github.com/burke/mesos-go"
 	"os"
 	"path/filepath"
 	"strconv"

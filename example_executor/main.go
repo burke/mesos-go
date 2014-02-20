@@ -3,7 +3,7 @@ package main
 import (
 	"code.google.com/p/goprotobuf/proto"
 	"fmt"
-	"github.com/burke/mesos-go/mesos"
+	"github.com/burke/mesos-go"
 )
 
 func main() {
