@@ -1,8 +1,8 @@
 package mesos
 
 /*
-#cgo LDFLAGS:-Lc-bridge -L../../../c-bridge -lcbridge -lmesos -lstdc++
-#cgo CFLAGS:-Ic-bridge -I../../../c-bridge
+#cgo LDFLAGS:-Lc-bridge -L../c-bridge -lcbridge -lmesos -lstdc++
+#cgo CFLAGS:-Ic-bridge -I../c-bridge
 
 #include <string.h>
 #include <c-api.hpp>
