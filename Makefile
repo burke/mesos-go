@@ -4,9 +4,16 @@ all: examples
 c-bridge:
 	cd c-bridge; make all
 
+OS=$(shell uname)
+ifeq ($(OS),Darwin)
+	LIB=/usr/local/lib/libmesos.dylib
+else
+	LIB=/usr/local/lib/libmesos.so
+endif
+
 check_mesos:
-	@if [ ! -f /usr/local/lib/libmesos.so ]; then \
-  	echo "Error: Expecting libmesos.so in /usr/local/lib"; exit 2; \
+	@if [ ! -f $(LIB) ]; then \
+  	echo "Error: Expecting $(LIB) in /usr/local/lib"; exit 2; \
 	else true; fi
 	@if [ ! -d /usr/local/include/mesos ]; then \
   	echo "Error: Expecting mesos headers in /usr/local/include/mesos"; exit 2; \
@@ -17,13 +24,9 @@ check_proto_headers:
   	echo "Error: Expected installed protocol buffer"; exit 2; \
 	else true; fi
 
-protos:
-	go get code.google.com/p/goprotobuf/proto
-	go get code.google.com/p/goprotobuf/protoc-gen-go
-
-examples: check_proto_headers check_mesos protos c-bridge
-	go install mesos.apache.org/example_framework
-	go install mesos.apache.org/example_executor
+examples: check_proto_headers check_mesos c-bridge
+	go install github.com/burke/mesos-go/example_framework
+	go install github.com/burke/mesos-go/example_executor
 
 clean:
 	@cd c-bridge; make clean

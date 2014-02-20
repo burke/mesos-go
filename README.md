@@ -10,9 +10,33 @@ Record the IP of the HDFS name node to publish your built executor.
 
 ### Install build dependencies
 
-On Ubuntu and Debian systems, run:
+### On OS X
 
-    $ sudo aptitude install make g++ libprotobuf-dev mercurial
+    $ brew install mercurial protobuf
+
+Additionally, you'll need mesos installed for libraries and headers:
+
+    (visit http://mesosphere.io/downloads/)
+    (find a package for OS X, eg:)
+    $ curl -O http://downloads.mesosphere.io/master/osx/mesos_0.17.0-rc1_x86_64.pkg
+    $ open mesos_*.pkg
+
+### On Ubuntu/Debian
+
+    $ sudo aptitude install -y build-essential mercurial.
+
+Additionally, you will need protobuf-2.5.0 installed. `apt-get install libprotobuf-dev` may or may not be recent enough. If not:
+
+    $ curl https://protobuf.googlecode.com/files/protobuf-2.5.0.tar.gz | tar xf
+    $ cd protobuf-2.5.0
+    $ ./configure && make && sudo make install
+
+You will also need the mesos protobuf header `mesos.pb.h` available somewhere on your system. The easiest way is to install a `.deb` from mesosphere, but you could equivalently build from source:
+
+    (visit http://mesosphere.io/downloads/)
+    (then, for example...)
+    $ wget http://downloads.mesosphere.io/master/ubuntu/12.04/mesos_0.17.0-rc1_amd64.deb
+    $ sudo dpkg -i mesos_*.deb
 
 In case your distribution does not include Go 1.1.2+, please fetch a more recent version as certain parts of the protobuf library depends on it:
 
