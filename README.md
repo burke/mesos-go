@@ -5,45 +5,59 @@ Early Go language bindings for Apache Mesos.
 
 ## Install instructions
 
-Ensure you have libprotobuf and libmesos installed by following the instructions below, then:
+### Install `libprotobuf`
 
-    go get github.com/burke/mesos-go
-
-### On OS X
+#### OS X
 
     brew install protobuf
 
-Additionally, you'll need mesos installed for libmesos.
+#### Ubuntu/Debian
 
-    # (visit http://mesosphere.io/downloads/)
-    # (find a package for OS X, eg:)
-    cd /tmp
-    curl -O http://downloads.mesosphere.io/master/osx/mesos_0.17.0-rc1_x86_64.pkg
-    open mesos_*.pkg
-
-### On Ubuntu/Debian
-
-    sudo apt-get install -y build-essential
-
-Additionally, you will need protobuf-2.5.0 installed. `apt-get install libprotobuf-dev` is likely not recent enough:
+You will need version 2.5.0 or higher. The one `apt-get` grabs isn't high enough.
 
     cd /tmp
     curl https://protobuf.googlecode.com/files/protobuf-2.5.0.tar.gz | tar xf
     cd protobuf-2.5.0 && ./configure && make && sudo make install
 
-You will also need `libmesos`. The easiest way is to install a `.deb` from mesosphere:
+### Install `libmesos`
+
+#### OS X
+
+visit http://mesosphere.io/downloads and find a package for OS X, eg:
+
+    cd /tmp
+    curl -O http://downloads.mesosphere.io/master/osx/mesos_0.17.0-rc1_x86_64.pkg
+    open mesos_*.pkg
+
+#### Ubuntu/Debian
+
+visit http://mesosphere.io/downloads and find a package for your release, eg:
 
     # (visit http://mesosphere.io/downloads/)
     # (then, for example...)
     wget http://downloads.mesosphere.io/master/ubuntu/12.04/mesos_0.17.0-rc1_amd64.deb
     sudo dpkg -i mesos_*.deb
 
-In case your distribution does not include Go 1.2+, please fetch a more recent version:
+### Upgrade to Go 1.2
+
+Go 1.2 is necessary to build this project, as it relies on new features for compiling with C++.
+
+#### OS X
+
+    brew update && brew upgrade go
+
+#### Ubuntu/Debian
 
     sudo apt-get install python-software-properties
     sudo add-apt-repository ppa:duh/golang
     sudo apt-get update
     sudo apt-get install golang
+
+### Build
+
+    go get github.com/burke/mesos-go
+
+## Examples
 
 ### Compile example framework and executor
 
