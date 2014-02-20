@@ -2,7 +2,8 @@ package mesos
 
 /*
 #cgo LDFLAGS:-lmesos -lstdc++
-#cgo CFLAGS:-O2 -static -I/usr/local/include -I/usr/local/include/mesos -L/usr/local/lib
+#cgo CFLAGS:-O2 -I/usr/local/include -I/usr/local/include/mesos -L/usr/local/lib
+#cgo CPPFLAGS:-O2 -I/usr/local/include -I/usr/local/include/mesos -L/usr/local/lib
 
 #include <string.h>
 #include "c-api.hpp"
