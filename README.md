@@ -33,8 +33,6 @@ visit http://mesosphere.io/downloads and find a package for OS X, eg:
 
 visit http://mesosphere.io/downloads and find a package for your release, eg:
 
-    # (visit http://mesosphere.io/downloads/)
-    # (then, for example...)
     wget http://downloads.mesosphere.io/master/ubuntu/12.04/mesos_0.17.0-rc1_amd64.deb
     sudo dpkg -i mesos_*.deb
 
