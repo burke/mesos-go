@@ -58,17 +58,17 @@ Go 1.2 is necessary to build this project, as it relies on new features for comp
 
 ## Examples
 
-### Compile example framework and executor
+#### Compile example framework and executor
 
     go install github.com/burke/mesos-go/example_framework
     go install github.com/burke/mesos-go/example_executor
 
-### Install example executor in HDFS
+#### Install example executor in HDFS
 
     hadoop fs -mkdir /go-tmp
     hadoop fs -put $GOPATH/bin/example_executor /go-tmp
 
-### Run example framework:
+#### Run example framework:
 
     $GOPATH/bin/example_framework -executor-uri hdfs://<hdfs-name-node>/go-tmp/example_executor
 
