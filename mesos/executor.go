@@ -1,11 +1,11 @@
 package mesos
 
 /*
-#cgo LDFLAGS:-Lc-bridge -L../c-bridge -lcbridge -lmesos -lstdc++
-#cgo CFLAGS:-Ic-bridge -I../c-bridge
+#cgo LDFLAGS:-lmesos -lstdc++
+#cgo CFLAGS:-O2 -static -I/usr/local/include -I/usr/local/include/mesos -L/usr/local/lib
 
 #include <string.h>
-#include <c-api.hpp>
+#include "c-api.hpp"
 
 extern void executor_registeredCB(void*, ProtobufObj*, ProtobufObj*, ProtobufObj*);
 extern void executor_reregisteredCB(void*, ProtobufObj*);
