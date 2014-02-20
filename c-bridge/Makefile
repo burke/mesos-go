@@ -18,3 +18,4 @@ link: $(objects)
 clean:
 	-rm -f $(objects)
 	-rm -f libcbridge.a
+	-rm -f a.out

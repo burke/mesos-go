@@ -12,7 +12,7 @@ Record the IP of the HDFS name node to publish your built executor.
 
 ### On OS X
 
-    $ brew install mercurial protobuf
+    $ brew install protobuf
 
 Additionally, you'll need mesos installed for libraries and headers:
 
@@ -23,7 +23,7 @@ Additionally, you'll need mesos installed for libraries and headers:
 
 ### On Ubuntu/Debian
 
-    $ sudo aptitude install -y build-essential mercurial.
+    $ sudo apt-get install -y build-essential
 
 Additionally, you will need protobuf-2.5.0 installed. `apt-get install libprotobuf-dev` may or may not be recent enough. If not:
 
@@ -46,13 +46,9 @@ In case your distribution does not include Go 1.1.2+, please fetch a more recent
     $ echo 'export GOROOT=~/go' >> ~/.bashrc
     $ source ~/.bashrc
 
-### Fetch and compile example framework and executor
+### Compile example framework and executor
 
-    $ wget https://github.com/mesosphere/mesos-go/archive/master.zip
-    $ unzip master.zip
-    $ cd mesos-go-master
-    $ export GOPATH=`pwd`
-    $ make
+    $ make examples
 
 ### Install example executor in HDFS
 
