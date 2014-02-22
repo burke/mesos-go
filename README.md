@@ -90,3 +90,6 @@ You should see output like:
     Received task status: Go task is running!
     Received task status: Go task is done!
 
+### Protips
+
+Set `MESOS_TRACE=1` in your environment when running an application using this library to log the chatter between mesos and your framework or executor.
