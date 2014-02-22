@@ -129,6 +129,10 @@ func serializeItem(pb proto.Message) ([]byte, error) {
 }
 
 func (sdriver *SchedulerDriver) Init() error {
+	if ApiTrace {
+		log.Println("[MESOS_TRACE] ->Init")
+	}
+
 	var cmsg *C.char = C.CString(sdriver.Master)
 
 	dataObj, err := serialize(&sdriver.Framework)
@@ -151,6 +155,10 @@ func (sdriver *SchedulerDriver) Init() error {
 }
 
 func (sdriver *SchedulerDriver) Start() error {
+	if ApiTrace {
+		log.Println("[MESOS_TRACE] ->Start")
+	}
+
 	if sdriver.driver != nil {
 		C.scheduler_start(C.SchedulerDriverPtr(sdriver.driver))
 	} else {
@@ -160,6 +168,10 @@ func (sdriver *SchedulerDriver) Start() error {
 }
 
 func (sdriver *SchedulerDriver) Stop(failover bool) error {
+	if ApiTrace {
+		log.Println("[MESOS_TRACE] ->Stop")
+	}
+
 	if sdriver.driver != nil {
 		var failoverInt C.int = 0
 		if failover {
@@ -174,6 +186,10 @@ func (sdriver *SchedulerDriver) Stop(failover bool) error {
 }
 
 func (sdriver *SchedulerDriver) Abort() error {
+	if ApiTrace {
+		log.Println("[MESOS_TRACE] ->Abort")
+	}
+
 	if sdriver.driver != nil {
 		C.scheduler_abort(C.SchedulerDriverPtr(sdriver.driver))
 	} else {
@@ -183,6 +199,10 @@ func (sdriver *SchedulerDriver) Abort() error {
 }
 
 func (sdriver *SchedulerDriver) Join() error {
+	if ApiTrace {
+		log.Println("[MESOS_TRACE] ->Join")
+	}
+
 	if sdriver.driver != nil {
 		C.scheduler_join(C.SchedulerDriverPtr(sdriver.driver))
 	} else {
@@ -192,6 +212,10 @@ func (sdriver *SchedulerDriver) Join() error {
 }
 
 func (sdriver *SchedulerDriver) Run() error {
+	if ApiTrace {
+		log.Println("[MESOS_TRACE] ->Run")
+	}
+
 	if sdriver.driver != nil {
 		C.scheduler_run(C.SchedulerDriverPtr(sdriver.driver))
 	} else {
@@ -201,6 +225,10 @@ func (sdriver *SchedulerDriver) Run() error {
 }
 
 func (sdriver *SchedulerDriver) RequestResources(requests []Request) error {
+	if ApiTrace {
+		log.Println("[MESOS_TRACE] ->RequestResources")
+	}
+
 	if sdriver.driver != nil {
 		var requestsData []byte
 		for _, request := range requests {
@@ -232,6 +260,10 @@ func (sdriver *SchedulerDriver) LaunchTasks(
 	offerId *OfferID,
 	tasks []TaskInfo,
 	filters ...Filters) error {
+
+	if ApiTrace {
+		log.Println("[MESOS_TRACE] ->LaunchTasks")
+	}
 
 	if sdriver.driver != nil {
 		offerObj, err := serialize(offerId)
@@ -276,6 +308,10 @@ func (sdriver *SchedulerDriver) LaunchTasks(
 }
 
 func (sdriver *SchedulerDriver) KillTask(taskId *TaskID) error {
+	if ApiTrace {
+		log.Println("[MESOS_TRACE] ->KillTask")
+	}
+
 	if sdriver.driver != nil {
 		message, err := serialize(taskId)
 		if err != nil {
@@ -293,6 +329,11 @@ func (sdriver *SchedulerDriver) KillTask(taskId *TaskID) error {
 func (sdriver *SchedulerDriver) DeclineOffer(
 	offerId *OfferID,
 	filters ...Filters) error {
+
+	if ApiTrace {
+		log.Println("[MESOS_TRACE] ->DeclineOffer")
+	}
+
 	if sdriver.driver != nil {
 		message, err := serialize(offerId)
 		if err != nil {
@@ -320,6 +361,10 @@ func (sdriver *SchedulerDriver) DeclineOffer(
 }
 
 func (sdriver *SchedulerDriver) ReviveOffers() error {
+	if ApiTrace {
+		log.Println("[MESOS_TRACE] ->ReviveOffers")
+	}
+
 	if sdriver.driver != nil {
 		C.scheduler_reviveOffers(C.SchedulerDriverPtr(sdriver.driver))
 	} else {
@@ -332,6 +377,11 @@ func (sdriver *SchedulerDriver) SendFrameworkMessage(
 	executorId *ExecutorID,
 	slaveId *SlaveID,
 	data string) error {
+
+	if ApiTrace {
+		log.Println("[MESOS_TRACE] ->SendFrameworkMessage")
+	}
+
 	if sdriver.driver != nil {
 		executorMessage, executorErr := serialize(executorId)
 		if executorErr != nil {
@@ -359,10 +409,18 @@ func (sdriver *SchedulerDriver) SendFrameworkMessage(
 }
 
 func (sdriver *SchedulerDriver) Destroy() {
+	if ApiTrace {
+		log.Println("[MESOS_TRACE] ->Destroy")
+	}
+
 	C.scheduler_destroy(sdriver.driver, sdriver.scheduler)
 }
 
 func (sdriver *SchedulerDriver) Wait() {
+	if ApiTrace {
+		log.Println("[MESOS_TRACE] ->Wait")
+	}
+
 	for {
 		// For now, wait for juicy details.
 		runtime.Gosched()

@@ -73,6 +73,10 @@ type ExecutorDriver struct {
 }
 
 func (edriver *ExecutorDriver) Init() error {
+	if ApiTrace {
+		log.Println("[MESOS_TRACE] ->Init")
+	}
+
 	edriver.callbacks = C.getExecutorCallbacks()
 
 	pair := C.executor_init(&edriver.callbacks, unsafe.Pointer(edriver))
@@ -83,6 +87,10 @@ func (edriver *ExecutorDriver) Init() error {
 }
 
 func (edriver *ExecutorDriver) Start() error {
+	if ApiTrace {
+		log.Println("[MESOS_TRACE] ->Start")
+	}
+
 	if edriver.driver != nil {
 		C.executor_start(C.ExecutorDriverPtr(edriver.driver))
 	} else {
@@ -92,6 +100,10 @@ func (edriver *ExecutorDriver) Start() error {
 }
 
 func (edriver *ExecutorDriver) Stop() error {
+	if ApiTrace {
+		log.Println("[MESOS_TRACE] ->Stop")
+	}
+
 	if edriver.driver != nil {
 		C.executor_stop(C.ExecutorDriverPtr(edriver.driver))
 	} else {
@@ -101,6 +113,10 @@ func (edriver *ExecutorDriver) Stop() error {
 }
 
 func (edriver *ExecutorDriver) Abort() error {
+	if ApiTrace {
+		log.Println("[MESOS_TRACE] ->Abort")
+	}
+
 	if edriver.driver != nil {
 		C.executor_abort(C.ExecutorDriverPtr(edriver.driver))
 	} else {
@@ -110,6 +126,10 @@ func (edriver *ExecutorDriver) Abort() error {
 }
 
 func (edriver *ExecutorDriver) Join() error {
+	if ApiTrace {
+		log.Println("[MESOS_TRACE] ->Join")
+	}
+
 	if edriver.driver != nil {
 		C.executor_join(C.ExecutorDriverPtr(edriver.driver))
 	} else {
@@ -119,6 +139,10 @@ func (edriver *ExecutorDriver) Join() error {
 }
 
 func (edriver *ExecutorDriver) Run() error {
+	if ApiTrace {
+		log.Println("[MESOS_TRACE] ->Run")
+	}
+
 	if edriver.driver != nil {
 		C.executor_run(C.ExecutorDriverPtr(edriver.driver))
 	} else {
@@ -128,6 +152,10 @@ func (edriver *ExecutorDriver) Run() error {
 }
 
 func (edriver *ExecutorDriver) SendStatusUpdate(status *TaskStatus) error {
+	if ApiTrace {
+		log.Println("[MESOS_TRACE] ->SendStatusUpdate")
+	}
+
 	if edriver.driver != nil {
 		statusObj, err := serialize(status)
 		if err != nil {
@@ -146,6 +174,10 @@ func (edriver *ExecutorDriver) SendStatusUpdate(status *TaskStatus) error {
 }
 
 func (edriver *ExecutorDriver) SendFrameworkMessage(message string) error {
+	if ApiTrace {
+		log.Println("[MESOS_TRACE] ->SendFrameworkMessage")
+	}
+
 	if edriver.driver != nil {
 		var cdata *C.char = C.CString(message)
 
@@ -159,6 +191,10 @@ func (edriver *ExecutorDriver) SendFrameworkMessage(message string) error {
 }
 
 func (edriver *ExecutorDriver) Destroy() {
+	if ApiTrace {
+		log.Println("[MESOS_TRACE] ->Destroy")
+	}
+
 	C.executor_destroy(edriver.driver, edriver.executor)
 }
 
