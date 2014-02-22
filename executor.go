@@ -200,6 +200,10 @@ func executor_registeredCB(
 			return
 		}
 
+		if ApiTrace {
+			log.Println("[MESOS_TRACE] <-Registered")
+		}
+
 		driver.Executor.Registered(driver, executor, framework, slave)
 	}
 }
@@ -219,6 +223,10 @@ func executor_reregisteredCB(ptr unsafe.Pointer, slaveInfo *C.ProtobufObj) {
 			return
 		}
 
+		if ApiTrace {
+			log.Println("[MESOS_TRACE] <-Reregistered")
+		}
+
 		driver.Executor.Reregistered(driver, slave)
 	}
 }
@@ -230,6 +238,11 @@ func executor_disconnectedCB(ptr unsafe.Pointer) {
 		if driver.Executor.Disconnected == nil {
 			return
 		}
+
+		if ApiTrace {
+			log.Println("[MESOS_TRACE] <-Disconnected")
+		}
+
 		driver.Executor.Disconnected(driver)
 	}
 }
@@ -247,6 +260,10 @@ func executor_launchTaskCB(ptr unsafe.Pointer, taskInfo *C.ProtobufObj) {
 		err := proto.Unmarshal(taskData, &task)
 		if err != nil {
 			return
+		}
+
+		if ApiTrace {
+			log.Println("[MESOS_TRACE] <-LaunchTask")
 		}
 
 		driver.Executor.LaunchTask(driver, task)
@@ -268,6 +285,10 @@ func executor_killTaskCB(ptr unsafe.Pointer, taskId *C.ProtobufObj) {
 			return
 		}
 
+		if ApiTrace {
+			log.Println("[MESOS_TRACE] <-KillTask")
+		}
+
 		driver.Executor.KillTask(driver, task)
 	}
 }
@@ -283,6 +304,10 @@ func executor_frameworkMessageCB(ptr unsafe.Pointer, message *C.ProtobufObj) {
 			return
 		}
 
+		if ApiTrace {
+			log.Println("[MESOS_TRACE] <-FrameworkMessage")
+		}
+
 		driver.Executor.FrameworkMessage(driver, messageString)
 	}
 }
@@ -294,6 +319,11 @@ func executor_shutdownCB(ptr unsafe.Pointer) {
 		if driver.Executor.Error == nil {
 			return
 		}
+
+		if ApiTrace {
+			log.Println("[MESOS_TRACE] <-Shutdown")
+		}
+
 		driver.Executor.Shutdown(driver)
 	}
 }
@@ -309,6 +339,11 @@ func executor_errorCB(ptr unsafe.Pointer, message *C.ProtobufObj) {
 			log.Print("Mesos error: " + errorString)
 			return
 		}
+
+		if ApiTrace {
+			log.Println("[MESOS_TRACE] <-Error")
+		}
+
 		driver.Executor.Error(driver, errorString)
 	}
 }

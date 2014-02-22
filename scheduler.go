@@ -402,6 +402,10 @@ func registeredCB(
 			return
 		}
 
+		if ApiTrace {
+			log.Println("[MESOS_TRACE] <-Registered")
+		}
+
 		driver.Scheduler.Registered(driver, frameworkId, masterInfo)
 	}
 }
@@ -421,6 +425,10 @@ func reregisteredCB(ptr unsafe.Pointer, masterMessage *C.ProtobufObj) {
 			return
 		}
 
+		if ApiTrace {
+			log.Println("[MESOS_TRACE] <-Reregistered")
+		}
+
 		driver.Scheduler.Reregistered(driver, masterInfo)
 	}
 }
@@ -432,6 +440,11 @@ func disconnectedCB(ptr unsafe.Pointer) {
 		if driver.Scheduler.Disconnected == nil {
 			return
 		}
+
+		if ApiTrace {
+			log.Println("[MESOS_TRACE] <-Disconnected")
+		}
+
 		driver.Scheduler.Disconnected(driver)
 	}
 }
@@ -463,6 +476,11 @@ func resourceOffersCB(
 				offers = append(offers, offer)
 			}
 		}
+
+		if ApiTrace {
+			log.Println("[MESOS_TRACE] <-ResourceOffers")
+		}
+
 		driver.Scheduler.ResourceOffers(driver, offers)
 	}
 }
@@ -480,6 +498,10 @@ func offerRescindedCB(ptr unsafe.Pointer, offerIdMessage *C.ProtobufObj) {
 		err := proto.Unmarshal(data, &offerId)
 		if err != nil {
 			return
+		}
+
+		if ApiTrace {
+			log.Println("[MESOS_TRACE] <-OfferRescinded")
 		}
 
 		driver.Scheduler.OfferRescinded(driver, offerId)
@@ -505,6 +527,11 @@ func statusUpdateCB(
 			// XXX(nnielsen): report error.
 			return
 		}
+
+		if ApiTrace {
+			log.Println("[MESOS_TRACE] <-StatusUpdate")
+		}
+
 		driver.Scheduler.StatusUpdate(driver, status)
 	}
 }
@@ -537,6 +564,10 @@ func frameworkMessageCB(
 		message := C.GoBytes(dataMessage.data, C.int(dataMessage.size))
 		var messageString string = string(message)
 
+		if ApiTrace {
+			log.Println("[MESOS_TRACE] <-FrameworkMessage")
+		}
+
 		driver.Scheduler.FrameworkMessage(driver, executorId, slaveId, messageString)
 	}
 }
@@ -554,6 +585,10 @@ func slaveLostCB(ptr unsafe.Pointer, slaveIdMessage *C.ProtobufObj) {
 		err := proto.Unmarshal(data, &slaveId)
 		if err != nil {
 			return
+		}
+
+		if ApiTrace {
+			log.Println("[MESOS_TRACE] <-SlaveLost")
 		}
 
 		driver.Scheduler.SlaveLost(driver, slaveId)
@@ -586,6 +621,10 @@ func executorLostCB(
 			return
 		}
 
+		if ApiTrace {
+			log.Println("[MESOS_TRACE] <-ExecutorLost")
+		}
+
 		driver.Scheduler.ExecutorLost(driver, executorId, slaveId, int(status))
 	}
 }
@@ -603,6 +642,11 @@ func errorCB(ptr unsafe.Pointer, message *C.ProtobufObj) {
 			log.Print("Mesos error: " + errorString)
 			return
 		}
+
+		if ApiTrace {
+			log.Println("[MESOS_TRACE] <-Error")
+		}
+
 		driver.Scheduler.Error(driver, errorString)
 	}
 }
